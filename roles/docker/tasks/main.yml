@@ -17,16 +17,23 @@
     mode: '0755'
 
 - name: Add Docker's official GPG key
-  get_url:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
-    dest: /etc/apt/keyrings/docker.asc
-    mode: '0644'
+    keyring: /etc/apt/keyrings/docker.gpg
+    state: present
 
-- name: Add Docker repository to apt sources
-  copy:
-    content: |
-      deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
-    dest: /etc/apt/sources.list.d/docker.list
+- name: Print architecture variables
+  ansible.builtin.debug:
+    msg: "Architecture: {{ ansible_architecture }}, Codename: {{ ansible_lsb.codename }}"
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [arch={{ arch_mapping[ansible_architecture] | default(ansible_architecture) }}
+      signed-by=/etc/apt/keyrings/docker.gpg]
+      https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+    filename: docker
+    state: present
 
 - name: Update apt package index after adding Docker repository
   apt:
