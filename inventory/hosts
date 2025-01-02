@@ -1,2 +1,2 @@
 [devops]
-192.168.21.146 ansible_user=user 
+127.0.0.1 ansible_connection=local
