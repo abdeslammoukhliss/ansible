@@ -1,0 +1,19 @@
+- name: Install basic networking tools
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - net-tools
+    - iputils-ping
+    - curl
+    - wget
+    - vim
+
+- name: Verify installed tools
+  command: "{{ item }}"
+  loop:
+    - "docker --version"
+    - "minikube version"
+    - "curl --version"
+    - "vim --version"
+    - "ping -c 1 8.8.8.8"

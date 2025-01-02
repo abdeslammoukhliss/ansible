@@ -1,0 +1,2 @@
+[devops]
+192.168.21.146 ansible_user=user 
