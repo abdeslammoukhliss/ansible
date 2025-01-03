@@ -24,18 +24,18 @@
     line: 'export PATH=$PATH:/usr/local/bin'
     state: present
 - name: Add Kubernetes GPG key
-  shell: |
+  command: >
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   args:
-    executable: /bin/bash
+    warn: false
 
 - name: Add Kubernetes repository
   copy:
     content: |
-      deb https://apt.kubernetes.io/ kubernetes-xenial main
+      deb https://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main
     dest: /etc/apt/sources.list.d/kubernetes.list
 
-- name: Update package index after adding Kubernetes repository
+- name: Update package index
   apt:
     update_cache: yes
 
@@ -43,11 +43,12 @@
   apt:
     name: kubectl
     state: present
+
 - name: Ensure Minikube is installed
   apt:
     name: minikube
     state: present
-    
+
 - name: start minikube
   command: minikube start --driver=docker
   
