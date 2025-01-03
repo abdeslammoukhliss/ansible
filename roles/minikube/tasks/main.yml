@@ -23,26 +23,8 @@
     path: /etc/profile
     line: 'export PATH=$PATH:/usr/local/bin'
     state: present
-- name: Add Kubernetes GPG key
-  command: >
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  args:
-    warn: false
 
-- name: Add Kubernetes repository
-  copy:
-    content: |
-      deb https://apt.kubernetes.io/ kubernetes-{{ ansible_distribution_release }} main
-    dest: /etc/apt/sources.list.d/kubernetes.list
 
-- name: Update package index
-  apt:
-    update_cache: yes
-
-- name: Install kubectl
-  apt:
-    name: kubectl
-    state: present
 
 - name: Ensure Minikube is installed
   apt:
