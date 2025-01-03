@@ -43,4 +43,11 @@
   apt:
     name: kubectl
     state: present
--  name: start minikube
+- name: Ensure Minikube is installed
+  apt:
+    name: minikube
+    state: present
+    
+- name: start minikube
+  command: minikube start --driver=docker
+  
