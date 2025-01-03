@@ -31,10 +31,10 @@
 - name: Update package index after adding Docker repository
   apt:
     update_cache: yes
-- name: Create a new group
-  group:
-    name: docker
-    state: present
+- name: Create Docker group
+  command: groupadd docker
+  ignore_errors: yes  # This ensures it won't fail if the group already exists
+
 - name: Add user to docker group
   user:
     name: "{{ ansible_user | default('ubuntu') }}"
