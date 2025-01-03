@@ -43,3 +43,4 @@
   apt:
     name: kubectl
     state: present
+-  name: start minikube
