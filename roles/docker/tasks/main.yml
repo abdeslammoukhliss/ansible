@@ -40,3 +40,6 @@
     name: "{{ ansible_user | default('ubuntu') }}"
     groups: docker
     append: yes
+- name: Create Docker group
+  command: newgrp docker
+  ignore_errors: yes  # This ensures it won't fail if the group already exists
