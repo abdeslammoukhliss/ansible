@@ -26,11 +26,11 @@
 
 
 
- - name: Ensure Minikube is installed
-      command: /usr/local/bin/minikube version
-      register: minikube_version
-      changed_when: false
-      failed_when: minikube_version.rc != 0
+- name: Ensure Minikube is installed
+    command: /usr/local/bin/minikube version
+    register: minikube_version
+    changed_when: false
+    failed_when: minikube_version.rc != 0
 
 - name: start minikube
   command: minikube start --driver=docker
