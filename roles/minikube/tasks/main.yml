@@ -27,7 +27,6 @@
   shell: |
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   args:
-    warn: false
     executable: /bin/bash
 
 - name: Add Kubernetes repository
